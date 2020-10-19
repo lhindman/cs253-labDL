@@ -51,7 +51,7 @@ valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./mytests
 ```
 
 <br />
-3. Implement M.A.S.H Game Database (main.c)
+3. Implement M.A.S.H. Game Database (main.c)
 <br /><br />
 Use an array of DataNode pointers to store the game data, with an ENUM for the indexes as follows:  
 
@@ -68,9 +68,9 @@ The data values should be specified in an char array of strings by using an init
 NOTE:  Each list should contain a minimum of 5 options.
 
 <br />
-4. Display M.A.S.H Game Database (main.c)
+4. Display M.A.S.H. Game Database (main.c)
 <br /><br />
-Display the contents of the M.A.S.H Game Database by calling the PrintDataList function on each list in the database array.
+Display the contents of the M.A.S.H. Game Database by calling the PrintDataList function on each list in the database array.
 
 
 ```
@@ -85,7 +85,7 @@ Hometown List: Cleveland, Queens, The Bronx, Brooklyn, Manhattan, Staten Island
 
 ```
 <br />
-5. Implement M.A.S.H Game UI (main.c)
+5. Implement M.A.S.H. Game UI (main.c)
 <br /><br />
 Prompt the user for their name and store to a local variable. Use the GetRandomDataNode() function to make a random selection from each list in the database and store a pointer to the nodes' dataValue in a local variable.  Then these values to construct the user's future and display it in the console.
 
@@ -112,7 +112,6 @@ Use the DestroyDataList() function to free the memory allocated for each of the 
 ```
 valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./myprog
 ```
-
 
 ### Implementation Guide
 1. Expand the folder named LabActivity and open the files named DataNode.c, DataNode.h, mytests.c and main.c
