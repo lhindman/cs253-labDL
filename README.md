@@ -1,4 +1,4 @@
-# Lab10 Guide
+# LabDL Guide
 ## Getting Started
 
 Please watch the [LabDL Getting Started Video](https://www.youtube.com/playlist?list=PLvnIObHoMl8erHXUNk9tIJCR_UrD3uplq]).
@@ -28,9 +28,10 @@ Implement the DataNode header in DataNode.h. Please include a struct and typedef
   - int dataSize
   - struct DataNode* nextNodePtr
 - Related functions
-  - DataNode* CreateDataNode(char data[])
-  - int InsertContactAfter(DataNode* nodeInList, DataNode* newNode)
-  - DataNode* GetNextNode(DataNode* nodeInList) 
+  - DataNode* CreateDataNode(const char data[])  
+  - int InsertDataNodeAfter(DataNode* nodeInList, DataNode* newNode)  
+  - int SetNextDataNode(DataNode* nodeInList, DataNode* newNode)  
+  - DataNode* GetNextDataNode(DataNode* nodeInList)  
   - void PrintDataNode(DataNode* thisNode)
   - void DestroyDataNode(DataNode* thisNode)
   - DataNode* BuildDataList(char * data[])
