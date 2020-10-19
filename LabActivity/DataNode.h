@@ -9,9 +9,11 @@
 #ifndef __DATA_NODE_H
 #define __DATA_NODE_H
 
+#include <stdio.h>
+
 struct DataNode_struct {
    char * dataValue;
-   int dataSize;
+   size_t dataSize;
    struct DataNode_struct* nextNodePtr;
 };
 typedef struct DataNode_struct DataNode;
@@ -67,9 +69,16 @@ void DestroyDataNode(DataNode* thisNode);
  *    function to allocate a DataNode for each string in the
  *    data array. It should hold a pointer to the listHead and listTail 
  *    and use the InsertDataNodeAfter funtion to build the list
- *    itself.  Once the list has been constructed, the listHead
- *    pointer should be returned to the caller, NULL should be return
- *    on an error.
+ *    itself.  
+ * 
+ *  The order of the items in the list should correspond to the
+ *    order of the elements in the array.  For example, the listHead
+ *    should contain the dataValue that corresponds to data[0] and 
+ *    listTail should contain the dataValue that cooresponds
+ *    to data[numElements-1].
+ * 
+ * Once the list has been constructed, the listHead pointer should be 
+ *    returned to the caller, NULL should be returned on an error.
  * data - Array of NULL terminiated strings
  * numElements - The number of string elements in data
  * returns - DataNode pointer to listHead, NULL if error occurred
@@ -100,8 +109,15 @@ void PrintDataList(DataNode *listHead);
 
 /* GetRandomDataNode: Use the GetDataListSize function in combination
  *   with the rand() function to randomly select a DataNode
- *   from the list. Return a pointer to the DataNode to the 
- *   caller, NULL on an error.
+ *   from the list. The seed value for rand() defaults to 1 which will
+ *   yield the same sequence of random numbers everytime. Use the
+ *   following call to change the seed value to the current time.
+ *   
+ *  #include <time.h>
+ * 
+ *  srand(time(0));
+ * 
+ * Return a pointer to the DataNode to the caller, NULL on an error.
  * listHead - DataNode pointer at the head of the list
  * returns - DataNode pointer to randomly selected node, NULL if error occurred
  */

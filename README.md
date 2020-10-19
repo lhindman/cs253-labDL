@@ -19,9 +19,9 @@ M.A.S.H. is a text-based game that will predict your future!  M.A.S.H. is an abb
 This activity provides experience adding items to, selecting items from, and iterating over LinkedLists. It also provides experience with Dynamic Memory allocation, pointers, arrays and structs. 
 
 <br />
-1. Implement the DataNode header file (DataNode.h)
+1. Carefully study the DataNode header file (DataNode.h)
 <br /><br />
-Implement the DataNode header in DataNode.h. Please include a struct and typedef to define the DataNode.  Also include declarations for the related functions as well as detailed function comments with parameters and return values for reach function.
+The DataNode struct as well as function declarations for the related functions described below have been provided in DataNode.h. Please do not modify the provided DataNode.h file. Details regarding each function as well as expected return values are included in the comments associated with each function declaration in DataNode.h. The following is a summary of this content:
 
 - Data members
   - char * dataValue
@@ -48,6 +48,12 @@ Test each function as it is written by developing testcases in mytests.c. Be sur
 
 ```
 valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./mytests
+```
+
+NOTE: If your testing does note seem to produce random results when calling GetRandomDataNode, this is likely because rand() has a default seed value of 1.  To change the seed value to the current time you will need to include <time.h> and then make the following call to srand() before your first call to rand():
+
+```
+srand(time(0));
 ```
 
 <br />

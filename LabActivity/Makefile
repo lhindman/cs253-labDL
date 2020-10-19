@@ -18,8 +18,11 @@ myprog: main.o DataNode.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
 
-mytests: main.o DataNode.o
+mytests: mytests.o DataNode.o
 	$(CC) $(CFLAGS) $^ -o $@ 
+
+memtest: mytests
+	valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./mytests
 
 clean:
 	rm -f *.o *.d a.out myprog mytests main
