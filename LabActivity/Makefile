@@ -11,15 +11,15 @@ CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
 
 # The build rule depends upon the myprog artifact existing.  If it does not, make
 #   will look for a rule to create it.
-build: myprog
+build: myprog mytests
 
 
-myprog: main.o 
+myprog: main.o DataNode.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
 
-test:
-	./myprog
+mytests: main.o DataNode.o
+	$(CC) $(CFLAGS) $^ -o $@ 
 
 clean:
 	rm -f *.o *.d a.out myprog mytests main

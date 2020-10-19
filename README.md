@@ -1,203 +1,128 @@
 # Lab10 Guide
 ## Getting Started
 
-Please watch the Lab10 Walkthough Video.
+Please watch the [LabDL Getting Started Video](https://www.youtube.com/playlist?list=PLvnIObHoMl8erHXUNk9tIJCR_UrD3uplq]).
 
-## Lab Warmup - Parsing strings
+### Code Style Requirements
+Please review the [CS253 Style Guide](https://docs.google.com/document/d/1zKIpNfkiPpDHEvbx8XSkZbUEUlpt8rnZjkhCSvM-_3A/edit?usp=sharing) and apply it in all lab warmups, lab activities and projects this semester. Coding Style will assessed as part of your lab and project grades.
+
+### Code Quality Requirements
+- Code must compile without warnings using the provided Makefile
+- Programs must handle unexpected user input and either reprompt (loops) or gracefully exit with a non-zero exit status.
+- Programs must handle error conditions gracefully, without crashing, ideally by checking function returns codes (if available) and returning a non-zero exit status.
+- Programs should be free of memory related errors, buffer overflows, stack smashing, leaks, etc... Whether the program crashes or not. This will be validated using valgrind.
+
+## Lab Activity - M.A.S.H.
 ### Problem Description
-<br />
-1. Prompt the user for a string that contains two strings separated by a comma. 
+M.A.S.H. is a text-based game that will predict your future!  M.A.S.H. is an abbreviation for the potential future places of residence: Mansion, Apartment, Shack, House. :)
 
-- Examples of strings that can be accepted:
-   - Jill, Allen
-   - Jill , Allen
-   - Jill,Allen
-<br />
+This activity provides experience adding items to, selecting items from, and iterating over LinkedLists. It also provides experience with Dynamic Memory allocation, pointers, arrays and structs. 
 
-Ex:
-```
-Enter input string:
-Jill, Allen
-```
 <br />
-2. Report an error if the input string does not contain a comma. Continue to prompt until a valid string is entered. 
-
-*Note: If the input contains a comma, then assume that the input also contains two strings.* 
+1. Implement the DataNode header file (DataNode.h)
 <br /><br />
-Ex:
-```
-Enter input string:
-Jill Allen
-Error: No comma in string.
+Implement the DataNode header in DataNode.h. Please include a struct and typedef to define the DataNode.  Also include declarations for the related functions as well as detailed function comments with parameters and return values for reach function.
 
-Enter input string:
-Jill, Allen
+- Data members
+  - char * dataValue
+  - int dataSize
+  - struct DataNode* nextNodePtr
+- Related functions
+  - DataNode* CreateDataNode(char data[])
+  - int InsertContactAfter(DataNode* nodeInList, DataNode* newNode)
+  - DataNode* GetNextNode(DataNode* nodeInList) 
+  - void PrintDataNode(DataNode* thisNode)
+  - void DestroyDataNode(DataNode* thisNode)
+  - DataNode* BuildDataList(char * data[])
+  - int GetDataListSize(DataNode* listHead)
+  - void PrintDataList(DataNode *listHead)
+  - DataNode* GetRandomDataNode(DataNode *listHead)
+  - void DestroyDataList(DataNode* listHead)
+
+
+<br />
+2. Implement each of the related functions listed above (DataNode.c)  
+<br /><br />
+Test each function as it is written by developing testcases in mytests.c. Be sure to run the tests through valgrind to catch any memory related errors that might not be immediately visible during normal safepath testing.
+
+```
+valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./mytests
+```
+
+<br />
+3. Implement M.A.S.H Game Database (main.c)
+<br /><br />
+Use an array of DataNode pointers to store the game data, with an ENUM for the indexes as follows:  
+
+
+- database[HOME_LIST] ---->>>>>  DataNode* listHead for list of homes  
+- database[FEMALE_SPOUSE_LIST] ---->>>>>  DataNode* listHead for list of female spouses  
+- database[MALE_SPOUSE_LIST] ---->>>>>  DataNode* listHead for list of male spouses  
+- database[OCCUPATION_LIST] ---->>>>> DataNode* listHead for list of occupations  
+- database[TRANSPORTATION_LIST] ---->>>>> DataNode* listHead for list of transportion - - methods  
+- database[HOMETOWN_LIST] ---->>>>> DataNode* listHead for list of hometowns  
+
+The data values should be specified in an char array of strings by using an initializer list.  This array will be passed to the BuildDataList function as a parameter which will in turn construct the list, allocating memory as required, and return a pointer to the listHead. This pointer should be stored at the cooresponding index in the database.
+
+NOTE:  Each list should contain a minimum of 5 options.
+
+<br />
+4. Display M.A.S.H Game Database (main.c)
+<br /><br />
+Display the contents of the M.A.S.H Game Database by calling the PrintDataList function on each list in the database array.
+
+
+```
+--------------------- Future Possibilities Database ------------------------
+Home List: mansion, apartment, shack, house 
+Female Spouse List: Robin, Lily, Nora, Patrice, Zoey, Quinn
+Male Spouse List: Ted, Marshall, Barney, Ranjit, Carl, Linus
+Occupation List: teacher, architect, lawyer, newscaster, undercover agent
+Transportation List: walk, ride the train, ride a bus, fly an airplane, carpool
+Hometown List: Cleveland, Queens, The Bronx, Brooklyn, Manhattan, Staten Island
+----------------------------------------------------------------------------
+
 ```
 <br />
-3. Extract the two words from the input string and remove any spaces. Store the strings in two separate variables and output the strings. 
+5. Implement M.A.S.H Game UI (main.c)
 <br /><br />
+Prompt the user for their name and store to a local variable. Use the GetRandomDataNode() function to make a random selection from each list in the database and store a pointer to the nodes' dataValue in a local variable.  Then these values to construct the user's future and display it in the console.
 
-Ex:
 ```
-Enter input string:
-Jill, Allen
-First word: Jill
-Second word: Allen
+Please enter your name: Luke
+ 
+ 
+Welcome Luke, this is your future... 
+You will marry Barney and live in a shack. 
+After 7 years of marriage, you will finally get your dream job of being a teacher. 
+Your family will move to a apartment in The Bronx where you will walk to work each day. 
+
 ```
 <br />
-4. Using a loop, extend the program to handle multiple lines of input. Continue until the user enters q to quit.  
+6. Free dynamic memory (main.c)
+<br /><br />
+Use the DestroyDataList() function to free the memory allocated for each of the lists in the database.  
+
+
+<br /> <br />
+7. Run valgrind to check for memory leaks or errors
 <br /><br />
 
-Ex:
 ```
-Enter input string:
-Jill, Allen
-First word: Jill
-Second word: Allen
-
-Enter input string:
-Golden , Monkey
-First word: Golden
-Second word: Monkey
-
-Enter input string:
-Washington,DC
-First word: Washington
-Second word: DC
-
-Enter input string:
-q
+valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./myprog
 ```
 
 
 ### Implementation Guide
-1. Expand the folder named LabWarmup and open the file named main.c
-2. Enter the program code to create an application as described in the Problem Description.
-3. Test the program using to ensure it functions as expected.
-4. Commit the changes to your local repository with a message stating that LabWarmup is completed.
-5. Push the changes from your local repository to the github classroom repository.
-6. Update the Coding Journal with an entry describing your experience using the steps outlined below.
-
-
-## Lab Activity
-### Problem Description
-<br />
-1. Prompt the user for a title for data. Output the title. 
-<br /><br />
-
-Ex:
-```
-Enter a title for the data:
-Number of Novels Authored
-You entered: Number of Novels Authored
-```
-<br />
-2. Prompt the user for the headers of two columns of a table. Output the column headers. 
-<br /><br />
-
-Ex:
-```
-Enter the column 1 header:
-Author name
-You entered: Author name
-
-Enter the column 2 header:
-Number of novels
-You entered: Number of novels
-```
-<br />
-3. Prompt the user for data points. Data points must be in this format: *string, int*. Store the information before the comma into a string variable and the information after the comma into an integer. The user will enter `-1` when they have finished entering data points. Output the data points. Store the string components of the data points in an array of strings. Store the integer components of the data points in an array of integers. 
-<br /><br />
-
-Ex:
-```
-Enter a data point (-1 to stop input):
-Jane Austen, 6
-Data string: Jane Austen
-Data integer: 6
-```
-<br />
-4. Perform error checking for the data point entries. If any of the following errors occurs, output the appropriate error message and prompt again for a valid data point.
-
-- If entry has no comma
-   - Output: `Error: No comma in string.` 
-- If entry has more than one comma
-   - Output: `Error: Too many commas in input.`
-- If entry after the comma is not an integer
-   - Output: `Error: Comma not followed by an integer.` 
-
-<br />
-
-Ex:
-```
-Enter a data point (-1 to stop input):
-Ernest Hemingway 9
-Error: No comma in string.
-
-Enter a data point (-1 to stop input):
-Ernest, Hemingway, 9
-Error: Too many commas in input.
-
-Enter a data point (-1 to stop input):
-Ernest Hemingway, nine
-Error: Comma not followed by an integer.
-
-Enter a data point (-1 to stop input):
-Ernest Hemingway, 9
-Data string: Ernest Hemingway
-Data integer: 9
-```
-<br />
-5. Output the information in a formatted table. The title is right justified with a width of 33. Column 1 has a width of 20. Column 2 has a width of 23. 
-<br /><br />
-
-Ex:
-```
-        Number of Novels Authored
-Author name         |       Number of novels
---------------------------------------------
-Jane Austen         |                      6
-Charles Dickens     |                     20
-Ernest Hemingway    |                      9
-Jack Kerouac        |                     22
-F. Scott Fitzgerald |                      8
-Mary Shelley        |                      7
-Charlotte Bronte    |                      5
-Mark Twain          |                     11
-Agatha Christie     |                     73
-Ian Flemming        |                     14
-J.K. Rowling        |                     14
-Stephen King        |                     54
-Oscar Wilde         |                      1
-```
-<br />
-6. Output the information as a formatted histogram. Each name is right justified with a width of 20. 
-<br /><br />
-
-Ex:
-```
-         Jane Austen ******
-     Charles Dickens ********************
-    Ernest Hemingway *********
-        Jack Kerouac **********************
- F. Scott Fitzgerald ********
-        Mary Shelley *******
-    Charlotte Bronte *****
-          Mark Twain ***********
-     Agatha Christie *************************************************************************
-        Ian Flemming **************
-        J.K. Rowling **************
-        Stephen King ******************************************************
-         Oscar Wilde *
-```
-
-### Implementation Guide
-1. Expand the folder named LabActivity and open the file named main.c
-2. Enter the program code to create an application as described in the Problem Description.
-3. Test the program using to ensure it functions as expected.
-4. Commit the changes to your local repository with a message stating that LabActivity is completed.
-5. Push the changes from your local repository to the github classroom repository.
-6. Update the Coding Journal with an entry describing your experience using the steps outlined below.
+1. Expand the folder named LabActivity and open the files named DataNode.c, DataNode.h, mytests.c and main.c
+2. Use the comments in DataNode.h to implement the related functions in DataNode.c
+3. Implement test cases in mytests.c to validate each function behaves as expected. This is known as unit testing. Be sure to run these tests with valgrind as indicated in the Problem Description.
+4. Enter the program code to create the M.A.S.H Game as described in the Problem Description.
+5. Test the program to ensure it functions as expected.
+6. Run the program with valgrind to catch any memory leaks or errors
+7. Commit the changes to your local repository with a message stating that LabActivity is completed.
+8. Push the changes from your local repository to the github classroom repository.
+9. Update the Coding Journal with an entry describing your experience using the steps outlined below.
 
 ## Coding Journal
 Keep a journal of your activities as you work on this lab. Many of the best engineers that I have worked with professionally have kept some sort of engineering journal. I personally packed notebooks around with me for nearly 8 years before I began keeping my notes electronically.   
