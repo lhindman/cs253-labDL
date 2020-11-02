@@ -50,7 +50,7 @@ Test each function as it is written by developing testcases in mytests.c. Be sur
 valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./mytests
 ```
 
-NOTE: If your testing does note seem to produce random results when calling GetRandomDataNode, this is likely because rand() has a default seed value of 1.  To change the seed value to the current time you will need to include <time.h> and then make the following call to srand() before your first call to rand():
+NOTE: If your testing does note seem to produce random results when calling GetRandomDataNode, this is likely because rand() has a default seed value of 1.  To change the seed value to the current time you will need to include <time.h> and then make the following call to srand() in main() before your first call to rand().  It is important that you only call srand() once and only in main().
 
 ```
 srand(time(0));
