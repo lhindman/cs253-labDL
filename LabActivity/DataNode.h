@@ -109,15 +109,8 @@ void PrintDataList(DataNode *listHead);
 
 /* GetRandomDataNode: Use the GetDataListSize function in combination
  *   with the rand() function to randomly select a DataNode
- *   from the list. The seed value for rand() defaults to 1 which will
- *   yield the same sequence of random numbers everytime. Use the
- *   following call to change the seed value to the current time.
- *   
- *  #include <time.h>
- * 
- *  srand(time(0));
- * 
- * Return a pointer to the DataNode to the caller, NULL on an error.
+ *   from the list. Return a pointer to the DataNode to the caller, NULL on an error.
+ *
  * listHead - DataNode pointer at the head of the list
  * returns - DataNode pointer to randomly selected node, NULL if error occurred
  */
