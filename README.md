@@ -1,4 +1,4 @@
-# Lab10 Guide
+# Lab09-2 Guide
 ## Getting Started
 
 Please watch the [Lab10 Getting Started Video](https://www.youtube.com/playlist?list=PLvnIObHoMl8erHXUNk9tIJCR_UrD3uplq]).
